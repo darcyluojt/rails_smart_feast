@@ -10,9 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_10_19_141208) do
+ActiveRecord::Schema[7.2].define(version: 2024_11_03_055021) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "profiles", force: :cascade do |t|
+    t.string "nickname"
+    t.string "gender"
+    t.boolean "yourself"
+    t.string "fitness_goal"
+    t.string "meal_plan"
+    t.integer "total_calorie"
+    t.integer "total_protein"
+    t.integer "total_carbs"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
