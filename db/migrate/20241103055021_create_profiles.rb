@@ -9,6 +9,10 @@ class CreateProfiles < ActiveRecord::Migration[7.2]
       t.integer :total_calorie
       t.integer :total_protein
       t.integer :total_carbs
+      t.date :date_of_birth
+      t.decimal :height
+      t.decimal :weight
+      t.references :user, null: false, foreign_key: true
 
       t.timestamps
     end
