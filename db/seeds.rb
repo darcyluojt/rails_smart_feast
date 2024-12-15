@@ -10,6 +10,8 @@
 require "json"
 require "open-uri"
 
+Recipe.destroy_all
+Ingredient.destroy_all
 
 id = ["52951", "52870", "52975", "52969","52947"]
 
@@ -17,6 +19,7 @@ id = ["52951", "52870", "52975", "52969","52947"]
 url = "https://www.themealdb.com/api/json/v1/1/lookup.php?i="
 
 id.each do |i|
+  # parse the food database url for the exact recipe id
   full_url = url + i
   uri = URI.parse(full_url).read
   meals = JSON.parse(uri)["meals"][0]
@@ -30,20 +33,36 @@ id.each do |i|
   new_recipe = Recipe.new(name: name, steps: instructions, category: category, thumbnail: thumbnail)
   new_recipe.save
   puts "Created #{name}"
+  # create recipe ingredients. However, if no ingredients are found, then create the ingredient first with usda api call
   i = 1
   until meals["strIngredient#{i}"].nil?
-    ingreidient_name = meals["strIngredient#{i}"]
-    if Ingredient.find_by(name: ingreidient_name)
-      ingredient = Ingredient.find_by(name: ingreidient_name)
+    break if meals["strIngredient#{i}"].empty?
+    ingredient_name = meals["strIngredient#{i}"]
+    if Ingredient.find_by(name: ingredient_name)
+      ingredient = Ingredient.find_by(name: ingredient_name)
     else
-      ingredient = Ingredient.new(name: ingreidient_name)
       # later on build a API call to get the calories and protein
+      service = NrelService.new
+      results = service.search_food(ingredient_name)
+      puts "Searching for #{ingredient_name}"
+      nutrients = results["foods"][0]["foodNutrients"]
+      protein = nutrients.find { |nutrient| nutrient["nutrientId"] == 1003 }
+      protein = protein.nil? ? 0 : protein["value"]
+      fat = nutrients.find { |nutrient| nutrient["nutrientId"] == 1004 }
+      fat = fat.nil? ? 0 : fat["value"]
+      carbs = nutrients.find { |nutrient| nutrient["nutrientId"] == 1005 }
+      carbs = carbs.nil? ? 0 : carbs["value"]
+      calories = nutrients.find { |nutrient| nutrient["nutrientId"] == 1008 }
+      calories = calories.nil? ? 0 : calories["value"]
+      ingredient = Ingredient.new(name: ingredient_name, calories_unit: calories, protein_unit: protein, fat_unit: fat, carbs_unit: carbs)
       ingredient.save
+
     end
     quantity = meals["strMeasure#{i}"]
-    new_ingredient_recipe = IngredientsRecipe.new(recipe: new_recipe, ingredient: ingredient, quantity: quantity)
+    unit = meals["strMeasure#{i}"].scan(/[a-zA-Z]+/).join
+    new_ingredient_recipe = IngredientsRecipe.new(recipe: new_recipe, ingredient: ingredient, quantity: quantity, unit: unit)
     new_ingredient_recipe.save
-    puts "Added #{ingreidient_name} to #{name}"
+    puts "Added #{ingredient_name} to #{name}"
     i += 1
   end
 end
