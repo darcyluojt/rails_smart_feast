@@ -1,0 +1,11 @@
+<main>
+<h1><%= @recipe.name %></h1>
+<%= image_path @recipe.thumbnail %>
+<h2>Ingredients</h2>
+<ul>
+<% @recipe.ingredients_recipes.each do |ingredient_recipe| %>
+  <li><%= ingredient_recipe.ingredient.name %>: <%= ingredient_recipe.quantity %></li>
+<% end %>
+</ul>
+
+</main>
