@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_12_18_113403) do
+ActiveRecord::Schema[7.2].define(version: 2024_12_19_162852) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -89,14 +89,17 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_18_113403) do
     t.boolean "yourself"
     t.string "fitness_goal"
     t.string "meal_plan"
-    t.integer "total_calorie"
-    t.integer "total_protein"
-    t.integer "total_carbs"
+    t.integer "calories_per_day"
+    t.integer "protein_per_day"
+    t.integer "carbs_per_day"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.decimal "height"
-    t.decimal "weight"
+    t.integer "height"
+    t.integer "weight"
     t.integer "meals_per_day"
+    t.date "date_of_birth"
+    t.bigint "user_id", null: false
+    t.index ["user_id"], name: "index_profiles_on_user_id"
   end
 
   create_table "profiles_meals", force: :cascade do |t|
@@ -149,6 +152,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_18_113403) do
   add_foreign_key "meals", "recipes"
   add_foreign_key "profile_requirements", "profiles"
   add_foreign_key "profile_requirements", "requirements"
+  add_foreign_key "profiles", "users"
   add_foreign_key "profiles_meals", "meals"
   add_foreign_key "profiles_meals", "profiles"
   add_foreign_key "recipes", "users"

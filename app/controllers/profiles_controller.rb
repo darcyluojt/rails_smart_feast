@@ -1,7 +1,6 @@
 class ProfilesController < ApplicationController
   def preview
-    recommendations = ChatgptService.get_recommendations(preview_params)
-    puts recommendations
+    recommendations = ChatgptService.get_recommendations(profile_params)
     render json: recommendations
   end
 
@@ -13,8 +12,18 @@ class ProfilesController < ApplicationController
     @profile = Profile.new
   end
 
+  def create
+    @profile = Profile.new(profile_params)
+    @profile.user = current_user
+    if @profile.save
+      redirect_to recipes_path, notice: 'Profile was successfully created.'
+    else
+      render :new, status: :unprocessable_entity
+    end
+  end
+
 private
-  def preview_params
-    params.require(:profile).permit(:gender, :height, :weight, :meals_per_day, :fitness_goal, :meal_plan)
+  def profile_params
+    params.require(:profile).permit(:nickname, :gender, :yourself,:height, :weight, :meals_per_day, :fitness_goal, :meal_plan, :calories_per_day, :protein_per_day, :carbs_per_day, :date_of_birth, :user_id)
   end
 end

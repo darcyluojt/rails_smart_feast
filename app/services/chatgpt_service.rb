@@ -6,6 +6,7 @@ class ChatgptService
         - Gender: #{profile_data["gender"]}
         - Height: #{profile_data["height"]}cm
         - Weight: #{profile_data["weight"]}kg
+        - Age: #{Time.now.year} - #{profile_data["date_of_birth"]}
         - Meals per day: #{profile_data["meals_per_day"]}
         - Fitness goal: #{profile_data["fitness_goal"]}
         - Meal plan: #{profile_data["meal_plan"]}
