@@ -1,0 +1,16 @@
+<div class="form-container" data-controller="profile">
+<%= simple_form_for @profile, html: {data: {profile_target: "form",action: "submit->profile#preview"} } do |f| %>
+  <%= f.input :nickname%>
+  <%= f.input :gender, collection: Profile::GENDER, input_html: { data: { profile_target: "gender" }}, value: 'female' %>
+  <%= f.input :yourself?, as: :check_boxes, collection: [[true,'Yes']], label_method: :second, value_method: :first, label: "Are you creating a profile for yourself?"  %>
+  <%= f.input :height, collection: 150..220, prompt: "cm (centimeter)", input_html: { data: { profile_target: "height" }} %>
+  <%= f.input :weight, collection: 50..200, prompt: "kg (kilogrames)", input_html: { data: { profile_target: "weight" }} %>
+  <%= f.input :meals_per_day, collection: 1..4, label: "How many meals do you eat per day?", input_html: { data: { profile_target: "meals" }} %>
+  <%= f.input :fitness_goal, collection: Profile::GOAL, input_html: { data: { profile_target: "goal" }} %>
+  <%= f.input :meal_plan, collection: Profile::MEAL_PLAN, input_html: { data: { profile_target: "plan" }} %>
+  <%= render 'preview_form' %>
+  <button data-action="click->profile#preview" class="btn btn-secondary">Review nutrition recommendations</button>
+  <%= f.submit "Create profile", class: "btn btn-primary d-none", data: { profile_target: "submit" }  %>
+<% end %>
+
+</div>

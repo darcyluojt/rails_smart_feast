@@ -1,0 +1,37 @@
+class ChatgptService
+  def self.get_recommendations(profile_data)
+      client = OpenAI::Client.new
+      prompt = <<~PROMPT
+        You are a responsible nutrition expert, your job is to provide recommendations to your clients based on their profile data. Here is the profile data of a client:
+        - Gender: #{profile_data["gender"]}
+        - Height: #{profile_data["height"]}cm
+        - Weight: #{profile_data["weight"]}kg
+        - Meals per day: #{profile_data["meals_per_day"]}
+        - Fitness goal: #{profile_data["fitness_goal"]}
+        - Meal plan: #{profile_data["meal_plan"]}
+
+        1g protein and 1g carbs are 4 calories each. 1g fat is 9 calories. If client chooses high protein, they should consume 1.2~1.7g of protein per kg of body weight. If fitness goal is weight loss, they should consume 5% less than their maintenance calories.
+        Return only these values in this format. Nothing else
+        Calories_per_day: [number]
+        Protein_per_day: [number]g
+        Carbs_per_day: [number]g
+      PROMPT
+
+    response = client.chat(
+      parameters: {
+        model: "gpt-4o-mini",
+        messages: [{role: "user", content: prompt}],
+      temperature: 0.7,
+    })
+    parse_response(response["choices"][0]["message"]["content"])
+  end
+
+    def self.parse_response(response)
+      hash = response.split("\n").map { |line| line.split(": ") }.to_h
+      hash.transform_keys! { |key| key.downcase }
+      hash.transform_values! do |value|
+        value.scan(/\d+/).first.to_i
+      end
+      hash
+    end
+end

@@ -1,6 +1,4 @@
 Rails.application.routes.draw do
-  get "recipes/index"
-  get "recipes/show"
   devise_for :users
   root to: "pages#home"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
@@ -14,6 +12,8 @@ Rails.application.routes.draw do
   get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
 
   resources :recipes
+  resources :profiles
+  post 'profiles/preview', to: 'profiles#preview'
   # Defines the root path route ("/")
   # root "posts#index"
 end

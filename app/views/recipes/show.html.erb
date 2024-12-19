@@ -1,6 +1,15 @@
 <main>
 <h1><%= @recipe.name %></h1>
-<%= image_path @recipe.thumbnail %>
+<%= image_tag @recipe.thumbnail, alt="#{@recipe.name}_image" %>
+ <%= link_to 'Gonna cook this', new_recipe_path  %>
+ <%= simple_form_for @customize do |f| %>
+  <%= f.input :name %>
+
+
+  <%= end %>
+  <%= f.button :submit %>
+ <% end %>
+
 <h2>Ingredients</h2>
 <ul>
 <% @recipe.ingredients_recipes.each do |ingredient_recipe| %>
