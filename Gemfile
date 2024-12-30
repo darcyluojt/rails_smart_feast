@@ -66,3 +66,6 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
+
+gem "shakapacker"
+gem "react_on_rails", "14.0.5"
