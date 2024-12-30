@@ -1,12 +1,10 @@
 <main>
 <h1><%= @recipe.name %></h1>
-<%= image_tag @recipe.thumbnail, alt="#{@recipe.name}_image" %>
- <%= link_to 'Gonna cook this', new_recipe_path  %>
- <%= simple_form_for @customize do |f| %>
-  <%= f.input :name %>
-
-
-  <%= f.button :submit %>
+<%= image_tag @recipe.thumbnail, alt: "#{@recipe.name}_image" %>
+ <%= simple_form_for @new do |f| %>
+  <%= f.hidden_field :baseline_id %>
+  <%= f.hidden_field :name %>
+  <%= f.submit "I am cooking this!" %>
  <% end %>
 
 <h2>Ingredients</h2>

@@ -6,17 +6,36 @@ class RecipesController < ApplicationController
 
   def show
     @recipe = Recipe.find(params[:id])
-    @customize = Recipe.new(name: @recipe.name, steps: @recipe.steps,baseline_id: @recipe.id, user: current_user)
-    @ingredients_recipes = @recipe.ingredients_recipes
-    @ingredients_recipes.each do |ingredient_recipe|
-      @customize.ingredients_recipes.build(ingredient_id: ingredient_recipe.ingredient_id)
+    # duplicate the recipe to create a new one
+    @new = Recipe.new(
+      name: "Copy of " + @recipe.name + " " + Time.now.strftime("%Y-%m-%d"),
+      steps: @recipe.steps,
+      baseline_id: @recipe.id,
+      user: current_user,
+      thumbnail: @recipe.thumbnail,
+      category: @recipe.category
+    )
+
+    # @ingredients = @recipe.ingredients
+    # @recipe.profiles_meals.build
+  end
+
+  def create
+    @recipe = Recipe.find(params[:recipe][:baseline_id])
+    @new=@recipe.dup
+    @new.user = current_user
+    @new.name = params[:recipe][:name]
+    if @new.save
+      redirect_to @new, notice: 'Recipe was successfully copied.'
+    else
+      render :show
     end
-  #   client = OpenAI::Client.new
-  #   chatgpt_response = client.chat(parameters: {
-  #   model: "gpt-4o-mini",
-  #   messages: [{ role: "user", content: "Give me a simple recipe for #{@recipe.name} with the ingredients #{@recipe.ingredients}. Give me only the text of the recipe, without any of your own answer like 'Here is a simple recipe'."}]
-  # })
-  # @content = chatgpt_response["choices"][0]["message"]["content"]
+
+  end
+
+  private
+  def recipe_params
+    params.require(:recipe).permit(:name, :steps, :baseline_id, :user_id, :thumbnail, :category)
   end
 
 
