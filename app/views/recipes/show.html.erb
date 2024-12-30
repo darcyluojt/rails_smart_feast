@@ -1,0 +1,21 @@
+<main>
+<h1><%= @recipe.name %></h1>
+<%= image_tag @recipe.thumbnail, alt: "#{@recipe.name}_image" %>
+ <%= simple_form_for @new do |f| %>
+  <%= f.hidden_field :baseline_id %>
+  <%= f.hidden_field :name %>
+  <%= f.submit "I am cooking this!" %>
+ <% end %>
+
+<h2>Ingredients</h2>
+<ul>
+<% @recipe.ingredients_recipes.each do |ingredient_recipe| %>
+  <li><strong><%= ingredient_recipe.ingredient.name %></strong>: <%= ingredient_recipe.quantity %><%= ingredient_recipe.unit %></li>
+  <span>Energy: <%= ingredient_recipe.ingredient.calories_unit %> KCAL <br>
+  Carbs: <%= ingredient_recipe.ingredient.carbs_unit %> <br>
+  Protein: <%= ingredient_recipe.ingredient.protein_unit %><br>
+  Fat: <%= ingredient_recipe.ingredient.fat_unit %></span>
+<% end %>
+</ul>
+
+</main>
