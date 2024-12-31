@@ -1,0 +1,14 @@
+2024-12-31 17:38:45.621 GMT [29232] LOG:  starting PostgreSQL 15.10 (Homebrew) on aarch64-apple-darwin21.6.0, compiled by Apple clang version 14.0.0 (clang-1400.0.29.202), 64-bit
+2024-12-31 17:38:45.624 GMT [29232] LOG:  listening on IPv4 address "127.0.0.1", port 5432
+2024-12-31 17:38:45.624 GMT [29232] LOG:  listening on IPv6 address "::1", port 5432
+2024-12-31 17:38:45.625 GMT [29232] LOG:  listening on Unix socket "/tmp/.s.PGSQL.5432"
+2024-12-31 17:38:45.630 GMT [29235] LOG:  database system was shut down at 2024-12-31 17:38:03 GMT
+2024-12-31 17:38:45.633 GMT [29232] LOG:  database system is ready to accept connections
+2024-12-31 17:40:37.733 GMT [30383] FATAL:  database "rails_smart_feast_development" does not exist
+2024-12-31 17:40:38.231 GMT [30385] FATAL:  database "rails_smart_feast_development" does not exist
+2024-12-31 17:43:45.631 GMT [29233] LOG:  checkpoint starting: time
+2024-12-31 17:47:05.208 GMT [29233] LOG:  checkpoint complete: wrote 1964 buffers (12.0%); 1 WAL file(s) added, 0 removed, 0 recycled; write=199.517 s, sync=0.040 s, total=199.577 s; sync files=677, longest=0.007 s, average=0.001 s; distance=9249 kB, estimate=9249 kB
+2024-12-31 18:08:45.201 GMT [29233] LOG:  checkpoint starting: time
+2024-12-31 18:08:46.123 GMT [29233] LOG:  checkpoint complete: wrote 10 buffers (0.1%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.914 s, sync=0.002 s, total=0.922 s; sync files=7, longest=0.001 s, average=0.001 s; distance=1 kB, estimate=8324 kB
+2024-12-31 18:13:45.123 GMT [29233] LOG:  checkpoint starting: time
+2024-12-31 18:13:45.644 GMT [29233] LOG:  checkpoint complete: wrote 5 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.514 s, sync=0.001 s, total=0.522 s; sync files=1, longest=0.001 s, average=0.001 s; distance=11 kB, estimate=7493 kB

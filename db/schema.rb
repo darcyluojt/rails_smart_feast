@@ -80,8 +80,13 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_10_173851) do
     t.integer "total_calorie"
     t.integer "total_protein"
     t.integer "total_carbs"
+    t.date "date_of_birth"
+    t.decimal "height"
+    t.decimal "weight"
+    t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_profiles_on_user_id"
   end
 
   create_table "profiles_meals", force: :cascade do |t|
@@ -128,6 +133,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_10_173851) do
   add_foreign_key "meals", "recipes"
   add_foreign_key "profile_requirements", "profiles"
   add_foreign_key "profile_requirements", "requirements"
+  add_foreign_key "profiles", "users"
   add_foreign_key "profiles_meals", "meals"
   add_foreign_key "profiles_meals", "profiles"
 end
