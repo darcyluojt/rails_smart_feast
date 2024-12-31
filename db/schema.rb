@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_12_10_173851) do
+ActiveRecord::Schema[7.2].define(version: 2024_12_19_162852) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -22,12 +22,23 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_10_173851) do
     t.index ["user_id"], name: "index_baskets_on_user_id"
   end
 
+  create_table "favourites", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "recipe_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["recipe_id"], name: "index_favourites_on_recipe_id"
+    t.index ["user_id"], name: "index_favourites_on_user_id"
+  end
+
   create_table "ingredients", force: :cascade do |t|
     t.string "name"
     t.integer "calories_unit"
     t.integer "protein_unit"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "fat_unit"
+    t.integer "carbs_unit"
   end
 
   create_table "ingredients_recipes", force: :cascade do |t|
@@ -36,6 +47,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_10_173851) do
     t.decimal "quantity"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "unit"
     t.index ["ingredient_id"], name: "index_ingredients_recipes_on_ingredient_id"
     t.index ["recipe_id"], name: "index_ingredients_recipes_on_recipe_id"
   end
@@ -77,15 +89,16 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_10_173851) do
     t.boolean "yourself"
     t.string "fitness_goal"
     t.string "meal_plan"
-    t.integer "total_calorie"
-    t.integer "total_protein"
-    t.integer "total_carbs"
-    t.date "date_of_birth"
-    t.decimal "height"
-    t.decimal "weight"
-    t.bigint "user_id", null: false
+    t.integer "calories_per_day"
+    t.integer "protein_per_day"
+    t.integer "carbs_per_day"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "height"
+    t.integer "weight"
+    t.integer "meals_per_day"
+    t.date "date_of_birth"
+    t.bigint "user_id", null: false
     t.index ["user_id"], name: "index_profiles_on_user_id"
   end
 
@@ -104,6 +117,10 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_10_173851) do
     t.integer "baseline_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.text "thumbnail"
+    t.text "category", default: [], array: true
+    t.index ["user_id"], name: "index_recipes_on_user_id"
   end
 
   create_table "requirements", force: :cascade do |t|
@@ -125,6 +142,8 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_10_173851) do
   end
 
   add_foreign_key "baskets", "users"
+  add_foreign_key "favourites", "recipes"
+  add_foreign_key "favourites", "users"
   add_foreign_key "ingredients_recipes", "ingredients"
   add_foreign_key "ingredients_recipes", "recipes"
   add_foreign_key "items", "baskets"
@@ -136,4 +155,5 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_10_173851) do
   add_foreign_key "profiles", "users"
   add_foreign_key "profiles_meals", "meals"
   add_foreign_key "profiles_meals", "profiles"
+  add_foreign_key "recipes", "users"
 end

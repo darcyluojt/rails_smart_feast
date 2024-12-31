@@ -1,2 +1,3 @@
 class Requirement < ApplicationRecord
+
 end
