@@ -15,8 +15,7 @@ Ingredient.destroy_all
 
 id = ["52951", "52870", "52975", "52969","52947"]
 
-
-
+url = "https://www.themealdb.com/api/json/v1/1/lookup.php?i="
 id.each do |i|
   # parse the food database url for the exact recipe id
   full_url = url + i

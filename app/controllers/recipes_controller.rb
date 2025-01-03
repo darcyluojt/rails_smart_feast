@@ -4,20 +4,9 @@ class RecipesController < ApplicationController
     @system_recipes = Recipe.by_system
   end
 
+  # function to render html.erb view
   def show
     @recipe = Recipe.find(params[:id])
-    # duplicate the recipe to create a new one
-    @new = Recipe.new(
-      name: "Copy of " + @recipe.name + " " + Time.now.strftime("%Y-%m-%d"),
-      steps: @recipe.steps,
-      baseline_id: @recipe.id,
-      user: current_user,
-      thumbnail: @recipe.thumbnail,
-      category: @recipe.category
-    )
-
-    # @ingredients = @recipe.ingredients
-    # @recipe.profiles_meals.build
   end
 
   def create

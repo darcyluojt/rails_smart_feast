@@ -1,3 +1,4 @@
+
 // Simple example of a React "smart" component
 
 import { connect } from 'react-redux';

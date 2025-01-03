@@ -4,7 +4,8 @@ class CreateIngredients < ActiveRecord::Migration[7.2]
       t.string :name
       t.integer :calories_unit
       t.integer :protein_unit
-
+      t.integer :fat_unit
+      t.integer :carbs_unit
       t.timestamps
     end
   end

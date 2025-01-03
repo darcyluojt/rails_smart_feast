@@ -6,6 +6,7 @@ class CreateItems < ActiveRecord::Migration[7.2]
       t.boolean :bought
       t.decimal :quantity
       t.time :bought_time
+      t.string :unit
 
       t.timestamps
     end

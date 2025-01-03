@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_12_19_162852) do
+ActiveRecord::Schema[7.2].define(version: 2024_12_15_193847) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -35,10 +35,10 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_19_162852) do
     t.string "name"
     t.integer "calories_unit"
     t.integer "protein_unit"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
     t.integer "fat_unit"
     t.integer "carbs_unit"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "ingredients_recipes", force: :cascade do |t|
@@ -58,6 +58,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_19_162852) do
     t.boolean "bought"
     t.decimal "quantity"
     t.time "bought_time"
+    t.string "unit"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["basket_id"], name: "index_items_on_basket_id"
@@ -89,16 +90,16 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_19_162852) do
     t.boolean "yourself"
     t.string "fitness_goal"
     t.string "meal_plan"
+    t.integer "meals_per_day"
     t.integer "calories_per_day"
     t.integer "protein_per_day"
     t.integer "carbs_per_day"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.date "date_of_birth"
     t.integer "height"
     t.integer "weight"
-    t.integer "meals_per_day"
-    t.date "date_of_birth"
     t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_profiles_on_user_id"
   end
 
