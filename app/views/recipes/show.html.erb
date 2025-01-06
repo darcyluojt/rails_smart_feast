@@ -1,0 +1,13 @@
+<%= javascript_pack_tag 'recipe-bundle' %>
+<main>
+<h1><%= @recipe.name %></h1>
+<%= image_tag @recipe.thumbnail, alt: "#{@recipe.name}_image" %>
+
+<%= react_component("Recipe",
+    props:{
+      recipe: @recipe_json,
+      profiles: @profiles_json
+    }) %>
+
+
+</main>

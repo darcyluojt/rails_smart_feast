@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
+  get 'hello_world', to: 'hello_world#index'
+  root "hello_world#index"
   devise_for :users
-  root to: "pages#home"
+  # root to: "pages#home"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
@@ -11,6 +13,14 @@ Rails.application.routes.draw do
   get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
   get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
 
-  # Defines the root path route ("/")
-  # root "posts#index"
+  resources :recipes, only: [ :index, :show, :create ]
+  # namespace :api, defaults: { format: :json } do
+  #   namespace :v1 do
+  #   resources :recipes, only: [ :show ]
+  #   end
+  # end
+
+  resources :profiles
+  post 'profiles/preiew', to: 'profiles#preview'
+
 end

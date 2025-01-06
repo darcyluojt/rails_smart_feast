@@ -1,0 +1,13 @@
+<main class="container">
+<h1>Welcome to SmartFeast</h1>
+<p>Add home flavour to your favourite recipes</p>
+<div class="d-flex">
+<% @system_recipes.each do |recipe| %>
+ <%= link_to recipe do %>
+  <div class="recipe-card" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(<%= image_path recipe.thumbnail %>);">
+    <%= recipe.name %>
+  </div>
+  <% end %>
+<% end %>
+</div>
+</main>
