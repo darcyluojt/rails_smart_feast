@@ -4,9 +4,10 @@
 <%= image_tag @recipe.thumbnail, alt: "#{@recipe.name}_image" %>
 
 <%= react_component("Recipe",
-    initialData: {
-      recipe: @recipe.as_json(include: { ingredients_recipes: { include: :ingredient } })},
-      profiles: current_user&.profiles.presence) %>
+    props:{
+      recipe: @recipe_json,
+      profiles: @profiles_json
+    }) %>
 
 
 </main>

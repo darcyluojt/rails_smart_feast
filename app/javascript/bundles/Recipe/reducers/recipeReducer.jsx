@@ -1,14 +1,16 @@
-// import { combineReducers } from 'redux';
-
-const initialState = {
-  recipe: initialData.recipe,
-  profiles: profiles }
-
-export default function recipeReducer (state=initialState,action) {
+import React from 'react';
+const recipeReducer = (state = {}, action) => {
   switch (action.type) {
-    case 'UPDATE_RECIPE':
-      return action.payload; // Replace the entire recipe
+    case 'SET_RECIPE_DATA':
+      return {
+        ...state,
+        recipe: action.payload.recipe,
+        profiles: action.payload.profiles,
+        // selectedProfile: []
+      };
     default:
       return state;
   }
 };
+
+export default recipeReducer;

@@ -7,6 +7,17 @@ class RecipesController < ApplicationController
   # function to render html.erb view
   def show
     @recipe = Recipe.find(params[:id])
+    @recipe_json = {
+      recipe: @recipe.as_json(include: {
+        ingredients_recipes: { include: :ingredient }
+      })
+    }
+    if current_user.present? && current_user?.profiles.present?
+      @profiles = current_user.profiles
+    else
+      @profiles = nil
+    end
+    @profiles_json = {profiles: @profiles.as_json}
   end
 
   def create

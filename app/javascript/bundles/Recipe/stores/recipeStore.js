@@ -1,10 +1,16 @@
 import { configureStore } from '@reduxjs/toolkit'
 import recipeReducer from '../reducers/recipeReducer';
-
-const store = configureStore({
-  reducer: {
-    recipe: recipeReducer
-  }
-});
-console.log(store.getState());
-export default store;
+import React from 'react';
+export const configureRecipeStore = (railsProps) => {
+  return configureStore({
+    reducer: {
+      recipe: recipeReducer
+    },
+    preloadedState: {
+      recipe: {
+        recipe: railsProps.recipe,
+        profiles: railsProps.profiles
+      }
+    }
+  });
+};

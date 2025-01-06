@@ -1,9 +1,19 @@
-import { connect } from 'react-redux';
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import Recipe from '../components/Recipe';
 import * as actions from '../actions/recipeActionCreators';
 
-const mapStateToProps = (state) => (
-  { recipe: state.recipe}
+const RecipeContainer = () => {
+  const recipe = useSelector(state => state.recipe.recipe);
+  const profiles = useSelector(state => state.recipe.profiles);
+  const dispatch = useDispatch();
 
-)
-export default connect()
+  // Example function to handle recipe updates
+  const handleRecipeUpdate = (updates) => {
+    dispatch(actions.updateRecipe(updates));
+  };
+
+  return <Recipe recipe={recipe} profiles={profiles} handleRecipeUpdate={handleRecipeUpdate} />;
+}
+
+export default RecipeContainer;

@@ -14,11 +14,11 @@ Rails.application.routes.draw do
   get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
 
   resources :recipes, only: [ :index, :show, :create ]
-  namespace :api, defaults: { format: :json } do
-    namespace :v1 do
-    resources :recipes, only: [ :show ]
-    end
-  end
+  # namespace :api, defaults: { format: :json } do
+  #   namespace :v1 do
+  #   resources :recipes, only: [ :show ]
+  #   end
+  # end
 
   resources :profiles
   post 'profiles/preiew', to: 'profiles#preview'
