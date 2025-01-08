@@ -1,13 +1,24 @@
 <%= javascript_pack_tag 'recipe-bundle' %>
-<main>
-<h1><%= @recipe.name %></h1>
-<%= image_tag @recipe.thumbnail, alt: "#{@recipe.name}_image" %>
-
+<main class="container mx-124">
+  <div class="recipe_header">
+    <h1><%= @recipe.name %></h1>
+    <%= image_tag @recipe.thumbnail %>
+    <ol>
+      <% @steps.each do |step| %>
+        <li><%= step %></li>
+      <% end %>
+    </ol>
+  </div>
 <%= react_component("Recipe",
     props:{
       recipe: @recipe_json,
       profiles: @profiles_json
     }) %>
-
+    <%= simple_form_for @meal do |f| %>
+      <%= f.hidden_field :recipe_id, value: @recipe.id %>
+      <%= f.hidden_field :basket, value: @basket %>
+      <%= f.input :date, discard_year: true, order: [:month, :day], collection: @dates %>
+      <%= f.submit "Add to your meal plan" %>
+    <% end %>
 
 </main>

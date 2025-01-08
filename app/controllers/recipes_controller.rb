@@ -7,17 +7,28 @@ class RecipesController < ApplicationController
   # function to render html.erb view
   def show
     @recipe = Recipe.find(params[:id])
+    @steps = @recipe.steps.split("\r\n").reject(&:blank?)
     @recipe_json = {
       recipe: @recipe.as_json(include: {
         ingredients_recipes: { include: :ingredient }
       })
     }
-    if current_user.present? && current_user?.profiles.present?
+    if current_user.present? && current_user.profiles.present?
       @profiles = current_user.profiles
     else
       @profiles = nil
     end
+    baskets = Basket.where(user: current_user)
+    if baskets.present?
+      @basket = baskets.last
+    else
+      @basket = Basket.create(user: current_user)
+    end
+    @dates = [Date.today.strftime('%^b %d %A'), (Date.today + 1).strftime('%^b %d %A'), (Date.today + 2).strftime('%^b %d %A')]
     @profiles_json = {profiles: @profiles.as_json}
+    @meal = Meal.new(recipe: @recipe, basket: @basket)
+
+
   end
 
   def create

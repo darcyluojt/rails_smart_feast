@@ -6,14 +6,24 @@ import * as actions from '../actions/recipeActionCreators';
 const RecipeContainer = () => {
   const recipe = useSelector(state => state.recipe.recipe);
   const profiles = useSelector(state => state.recipe.profiles);
+  const selectedProfileId = useSelector(state => state.recipe.selectedProfileId);
   const dispatch = useDispatch();
 
-  // Example function to handle recipe updates
-  const handleRecipeUpdate = (updates) => {
+  // Functions to call the action creators
+  const handleProfileSelect = (profileId) => {
+    dispatch(actions.updateSelectedProfile(profileId));}
+
+  const handleIngredientsUpdate = (updates) => {
     dispatch(actions.updateRecipe(updates));
   };
 
-  return <Recipe recipe={recipe} profiles={profiles} handleRecipeUpdate={handleRecipeUpdate} />;
+
+  return <Recipe
+  recipe={recipe}
+  profiles={profiles}
+  selectedProfileId={selectedProfileId}
+  onProfileSelect={handleProfileSelect}
+ />;
 }
 
 export default RecipeContainer;
