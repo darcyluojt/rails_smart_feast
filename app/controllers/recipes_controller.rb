@@ -34,7 +34,7 @@ class RecipesController < ApplicationController
     @props = {
       initialRecipe: @first_recipe.as_json(include: {
         ingredients_recipes: { include: :ingredient }}),
-      randomRecipeUrl: random_recipes_path}
+      nextUrl: random_recipes_path}
   end
 
   def create

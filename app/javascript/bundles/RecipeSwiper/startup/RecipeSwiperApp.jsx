@@ -1,16 +1,11 @@
 import React from 'react';
-import { Provider } from 'react-redux';
+import RecipeSwiper from '../components/RecipeSwiper';
 
-import configureStore from '../store/helloWorldStore';
-import RecipeSwiperContainer from '../containers/RecipeSwiperContainer';
-
-// See documentation for https://github.com/reactjs/react-redux.
-// This is how you get props from the Rails view into the redux store.
-// This code here binds your smart component to the redux store.
-const RecipeSwiperApp = (props) => (
-  <Provider store={configureStore(props)}>
-    <RecipeSwiperContainer />
-  </Provider>
-);
+const RecipeSwiperApp = (props) => {
+  return(
+    <RecipeSwiper
+    initialRecipe={props.initialRecipe}
+    nextUrl={props.nextUrl}/>
+)};
 
 export default RecipeSwiperApp;
