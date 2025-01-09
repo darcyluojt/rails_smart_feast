@@ -1,24 +1,23 @@
-<div class="navbar navbar-expand-sm navbar-light navbar-lewagon">
-  <div class="container-fluid">
-    <%= link_to "#", class: "navbar-brand" do %>
-      <%= image_tag 'logo.png' %>
+<nav class="bg-white shadow px-4 py-2">
+  <div class="max-w-7xl mx-auto flex justify-between items-center">
+    <%= link_to "#", class: "flex items-center" do %>
+      <%= image_tag 'logo.png', class: "h-4 w-auto" %>
     <% end %>
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto">
+    <div class="hidden sm:block">
+      <ul class="flex space-x-4 items-center">
         <% if user_signed_in? %>
-          <li class="nav-item dropdown">
-            <div class="d-flex align-items-center">
-              <p class="username">Welcome back, <%= current_user %>!</p>
+          <li class="relative">
+            <div class="flex items-center">
+              <p class="text-gray-700">Welcome back, <%= current_user %>!</p>
             </div>
-
           </li>
         <% else %>
-          <li class="nav-item">
-            <%= link_to "Login", new_user_session_path, class: "nav-link" %>
+          <li>
+            <%= link_to "Login", new_user_session_path, class: "text-gray-600 hover:text-gray-900" %>
           </li>
         <% end %>
       </ul>
     </div>
   </div>
-</div>
+</nav>

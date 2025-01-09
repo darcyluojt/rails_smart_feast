@@ -6,11 +6,11 @@ const recipeReducer = (state = {}, action) => {
         ...state,
         recipe: action.payload.recipe,
         profiles: action.payload.profiles,
-        // selectedProfile: []
       };
     default:
       return state;
   }
 };
+
 
 export default recipeReducer;

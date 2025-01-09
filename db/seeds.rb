@@ -64,27 +64,40 @@ id.each do |i|
     i += 1
   end
 end
+puts "creating new user"
+new_user = User.create!(email: "123@123.com", password: "123456")
 
 
-# Recipe.create([
-#   {
-#     name: "Spaghetti Bolognese",
-#     steps: "1. Cook spaghetti according to package instructions.\n2. In a separate pan, heat oil and sauté onions and garlic.\n3. Add minced meat and cook until browned.\n4. Stir in tomato sauce, season with salt, pepper, and herbs.\n5. Simmer for 20 minutes.\n6. Serve the sauce over the spaghetti and garnish with parmesan."
-#   },
-#   {
-#     name: "Chicken Curry",
-#     steps: "1. Heat oil in a pan and sauté onions until golden brown.\n2. Add ginger, garlic, and spices, then cook for 1-2 minutes.\n3. Add chicken pieces and cook until sealed.\n4. Pour in coconut milk and simmer for 25 minutes.\n5. Garnish with fresh coriander and serve with rice."
-#   },
-#   {
-#     name: "Vegetable Stir-Fry",
-#     steps: "1. Heat oil in a wok or large pan.\n2. Add garlic and ginger, then stir-fry for 30 seconds.\n3. Add mixed vegetables and cook for 5-7 minutes.\n4. Mix soy sauce, sesame oil, and cornstarch in a bowl, then pour over the vegetables.\n5. Stir-fry for another 2 minutes until sauce thickens.\n6. Serve hot with noodles or rice."
-#   },
-#   {
-#     name: "Pancakes",
-#     steps: "1. In a bowl, mix flour, sugar, baking powder, and salt.\n2. In a separate bowl, whisk together milk, eggs, and melted butter.\n3. Gradually add the wet ingredients to the dry ingredients, mixing until smooth.\n4. Heat a non-stick pan and pour batter to form pancakes.\n5. Cook until bubbles form, then flip and cook the other side.\n6. Serve with syrup, fruits, or toppings of choice."
-#   },
-#   {
-#     name: "Caesar Salad",
-#     steps: "1. Wash and chop romaine lettuce.\n2. In a bowl, whisk together olive oil, lemon juice, mustard, and grated parmesan for the dressing.\n3. Toss lettuce with the dressing.\n4. Add croutons and sprinkle extra parmesan on top.\n5. Serve immediately."
-#   }
-# ])
+puts "creating new profile"
+Profile.create!([
+  {
+    user_id: new_user.id,
+    nickname: "Main Profile",
+    gender: "Male",
+    yourself: true,
+    fitness_goal: "Gain lean muscle",
+    meal_plan: "High Protein",
+    meals_per_day: 4,
+    calories_per_day: 2800,
+    protein_per_day: 180,
+    carbs_per_day: 320,
+    date_of_birth: Date.new(1990, 1, 15),
+    height: 180,
+    weight: 80
+  },
+  {
+    user_id: new_user.id,
+    nickname: "Cutting Profile",
+    gender: "Male",
+    yourself: false,
+    fitness_goal: "Lose weight",
+    meal_plan: "Low Carbs",
+    meals_per_day: 5,
+    calories_per_day: 2200,
+    protein_per_day: 160,
+    carbs_per_day: 220,
+    date_of_birth: Date.new(1990, 1, 15),
+    height: 180,
+    weight: 80
+  }
+])
