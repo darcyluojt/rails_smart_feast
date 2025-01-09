@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
-  get 'hello_world', to: 'hello_world#index'
-  root "hello_world#index"
+  # get 'hello_world', to: 'hello_world#index'
+  root "recipes#discover"
   devise_for :users
   # root to: "pages#home"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
@@ -13,7 +13,9 @@ Rails.application.routes.draw do
   get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
   get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
 
-  resources :recipes, only: [ :index, :show, :create ]
+  resources :recipes, only: [ :index, :show, :create ] do
+    get :random, on: :collection
+  end
   resources :meals
 
   resources :profiles

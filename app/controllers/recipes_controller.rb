@@ -27,8 +27,14 @@ class RecipesController < ApplicationController
     @dates = [Date.today.strftime('%^b %d %A'), (Date.today + 1).strftime('%^b %d %A'), (Date.today + 2).strftime('%^b %d %A')]
     @profiles_json = {profiles: @profiles.as_json}
     @meal = Meal.new(recipe: @recipe, basket: @basket)
+  end
 
-
+  def discover
+    @first_recipe = Recipe.all.sample
+    @props = {
+      initialRecipe: @first_recipe.as_json(include: {
+        ingredients_recipes: { include: :ingredient }}),
+      randomRecipeUrl: random_recipes_path}
   end
 
   def create
@@ -47,6 +53,12 @@ class RecipesController < ApplicationController
   private
   def recipe_params
     params.require(:recipe).permit(:name, :steps, :baseline_id, :user_id, :thumbnail, :category)
+  end
+
+  def random
+    # @recipe = Recipe.where.not(id: current_user.viewed_recipes.pluck(:id)).sample
+    @recipe = Recipe.all.sample
+    render json: @recipe
   end
 
 
