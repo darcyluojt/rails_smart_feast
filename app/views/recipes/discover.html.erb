@@ -1,8 +1,7 @@
 <%= javascript_pack_tag 'recipe-swiper-bundle' %>
-<div class="flex items-center justify-center" style="height: 100vh;">
+<div class="flex items-center justify-center h-screen">
   <div class="container mx-auto px-4">
-    <h1 class="text-3xl text-pink-500 my-4" style="text-align: center">What do you fancy cooking tonight?</h1>
-    <br/>
-    <%= react_component("RecipeSwiper", {props: @props, className: "w-full mx-auto px-4 max-w-sm rounded-xl", prerender: false}) %>
+    <h1 class="text-2xl text-pink-500 my-4" style="text-align: center">What do you fancy cooking tonight?</h1>
+    <%= react_component("RecipeSwiper", {props: @props, className: "w-full max-w-sm rounded-xl px-4", prerender: false}) %>
   </div>
 </div>

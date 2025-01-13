@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { useState }  from 'react';
-import * as style from './RecipeSwiper.module.css';
+// import * as style from './RecipeSwiper.module.css';
 import { useSwipeable } from 'react-swipeable';
 import { current } from '@reduxjs/toolkit';
 
@@ -27,8 +27,6 @@ const RecipeSwiper = ({ initialRecipe, nextUrl }) => {
   }
 
   const createMeal = (recipe) =>{
-    console.log('right: creating meal');
-
     const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
     fetch('/meals', {
       method: 'POST',
@@ -43,17 +41,30 @@ const RecipeSwiper = ({ initialRecipe, nextUrl }) => {
         }
       })
     })
-    .then(response => response.json())
-    .then(data => {
-      console.log('Success:', data);
+    .then(response =>
+      {if (response.ok) {
+        window.location.href = response.url;
+      }
     })
+    .then(data => {
+      console.log(data);
+      if (data.status === 200) {
+
+        window.location.replace(data.basket_url)}})
+    .catch((error) => {
+      console.error('Error:', error);
+    });
   }
 
   const handlers = useSwipeable({
     onSwipedLeft: () => fetchNextRecipe(),
     onSwipedRight: ()=>createMeal(currentRecipe),
+    onSwiping: (eventData) => {
+      console.log('Swiping...', eventData.dir);
+    },
     preventDefaultTouchmoveEvent: true,
-    trackMouse: true
+    delta: 50,
+    trackMouse: true,
   });
 
   const categories = Object.values(currentRecipe.category).join(', ');
@@ -78,7 +89,6 @@ const RecipeSwiper = ({ initialRecipe, nextUrl }) => {
     }
 
     const linkStyle = {
-      // flexbox
       display: 'flex',
       justifyContent: 'space-between',
       flexDirection: 'column',
@@ -87,17 +97,15 @@ const RecipeSwiper = ({ initialRecipe, nextUrl }) => {
   return (
     <div {...handlers} style={style}>
       <a href={link}  className="recipe-card group relative block h-full
-      mx-4 sm:mx-8 overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300" style={linkStyle}>
-        <div className="relative p-4 sm:p-6 lg:p-8">
+      overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300" style={linkStyle}>
+        <div className="relative p-4 sm:p-6 lg:p-8 bg-black bg-opacity-25">
           <p className="text-xl font-bold text-white sm:text-2xl text-center drop-shadow-xl">{currentRecipe.name}</p>
           <p className="text-sm font-medium uppercase tracking-widest  text-pink-500 w-full flex justify-center">{categories}</p>
 
         </div>
-        {/* <div className="mt-32 sm:mt-48 lg:mt-64"> */}
-        {/* <div
-        // className="p-4 text-black sm:p-6 lg:p-8 overflow-hidden" style={{background: 'rgba(0,0,0,0.4)'}}> */}
+
         <div
-        className="p-4 text-black sm:p-6 lg:p-8 overflow-hidden bg-opacity-50">
+        className="p-4 text-black sm:p-6 lg:p-8 overflow-hidden bg-black bg-opacity-25">
 
           <p className="text-sm text-white drop-shadow-xl"><strong>Main ingredients: </strong></p>
           <p className="text-sm text-white drop-shadow-xl">{ingredients}</p>
@@ -105,7 +113,6 @@ const RecipeSwiper = ({ initialRecipe, nextUrl }) => {
           <p className="text-sm text-white drop-shadow-lg shadow-black">
           <strong>Instructions: </strong>{ingredients}{currentRecipe.steps.substring(0, currentRecipe.steps.indexOf('.') + 1)}......
           </p>
-          <br/>
         </div>
       </a>
     </div>

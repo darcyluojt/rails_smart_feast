@@ -1,24 +1,31 @@
-<%= javascript_pack_tag 'recipe-bundle' %>
-<main class="container mx-124">
-  <div class="recipe_header">
-    <h1><%= @recipe.name %></h1>
-    <%= image_tag @recipe.thumbnail %>
-    <ol>
-      <% @steps.each do |step| %>
-        <li><%= step %></li>
-      <% end %>
-    </ol>
-  </div>
-<%= react_component("Recipe",
-    props:{
-      recipe: @recipe_json,
-      profiles: @profiles_json
-    }) %>
-    <%= simple_form_for @meal do |f| %>
-      <%= f.hidden_field :recipe_id, value: @recipe.id %>
-      <%= f.hidden_field :basket, value: @basket %>
-      <%= f.input :date, discard_year: true, order: [:month, :day], collection: @dates %>
-      <%= f.submit "Add to your meal plan" %>
-    <% end %>
+<%# <%= javascript_pack_tag 'recipe-bundle' %>
+<div class="h-screen mx-auto px-4 w-11/12 max-w-md">
+  <div class="recipe_header space-y-6 py-8">
+    <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 text-center">
+      <%= @recipe.name %>
+    </h1>
 
-</main>
+<%= image_tag @recipe.thumbnail, class: "w-48 md:w-56 lg:w-64 h-48 md:h-56 lg:h-64 mx-auto object-cover rounded-full shadow-md" %>
+</div>
+<div class="w-11/12 max-w-md">
+<ol class="space-y-4 list-none">
+  <% @steps.each_with_index do |step, index| %>
+    <li class="text-base md:text-lg leading-relaxed flex">
+      <span class="text-pink-500 mr-2"><%= index + 1 %>. </span>
+      <span class="text-gray-700"><%= step %></span>
+    </li>
+  <% end %>
+</ol>
+</div>
+</div>
+<%# <%= react_component("Recipe", %>
+    <%# props:{ %>
+      <%# recipe: @recipe_json, %>
+      <%# profiles: @profiles_json %>
+    <%# }) %>
+    <%# <%= simple_form_for @meal do |f| %>
+      <%# <%= f.hidden_field :recipe_id, value: @recipe.id %>
+      <%# <%= f.hidden_field :basket, value: @basket %>
+      <%# <%= f.input :date, discard_year: true, order: [:month, :day], collection: @dates  %>
+      <%# <%= f.submit "Add to your meal plan"  %>
+    <%# <% end %>
