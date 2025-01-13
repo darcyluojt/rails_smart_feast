@@ -42,24 +42,29 @@ class RecipesController < ApplicationController
     @new=@recipe.dup
     @new.user = current_user
     @new.name = params[:recipe][:name]
-    if @new.save
-      redirect_to @new, notice: 'Recipe was successfully copied.'
-    else
-      render :show
+      if @new.save
+        redirect_to @new, notice: 'Recipe was successfully copied.'
+      else
+        render :show
+      end
     end
 
-  end
+    def random
+      # @recipe = Recipe.where.not(id: current_user.viewed_recipes.pluck(:id)).sample
+      next_recipe = Recipe.all.sample
+      render json: next_recipe.as_json(include: {
+      ingredients_recipes: { include: :ingredient }
+  })
+    end
+
+
 
   private
   def recipe_params
     params.require(:recipe).permit(:name, :steps, :baseline_id, :user_id, :thumbnail, :category)
   end
 
-  def random
-    # @recipe = Recipe.where.not(id: current_user.viewed_recipes.pluck(:id)).sample
-    @recipe = Recipe.all.sample
-    render json: @recipe
-  end
+
 
 
 end

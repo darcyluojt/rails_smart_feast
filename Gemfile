@@ -70,4 +70,4 @@ gem "shakapacker"
 gem "react_on_rails", "14.0.5"
 gem 'httparty'
 gem "ruby-openai"
-gem "tailwindcss-rails"
+gem 'tailwindcss-rails', '3.1.0'
