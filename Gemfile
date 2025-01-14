@@ -57,7 +57,7 @@ group :development do
   gem "web-console"
 
   # Highlight the fine-grained location where an error occurred [https://github.com/ruby/error_highlight]
-  gem "error_highlight", ">= 0.4.0", platforms: [:ruby]
+  gem "error_highlight", ">= 0.7.0", platforms: [:ruby]
 end
 
 group :test do
@@ -70,4 +70,4 @@ gem "shakapacker"
 gem "react_on_rails", "14.0.5"
 gem 'httparty'
 gem "ruby-openai"
-gem "tailwindcss-rails"
+gem 'tailwindcss-rails', '3.1.0'

@@ -2,6 +2,7 @@ import React from 'react';
 import RecipeSwiper from '../components/RecipeSwiper';
 
 const RecipeSwiperApp = (props) => {
+
   return(
     <RecipeSwiper
     initialRecipe={props.initialRecipe}

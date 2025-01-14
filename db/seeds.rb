@@ -10,10 +10,11 @@
 require "json"
 require "open-uri"
 
-Recipe.destroy_all
-Ingredient.destroy_all
+# Recipe.destroy_all
+# Ingredient.destroy_all
 
-id = ["52951", "52870", "52975", "52969","52947"]
+# id = ["53079", "52827", "52873", "52950","52945","52823","52820"]
+id = ["52846","52828", "52948","53083","53073","52903"]
 
 url = "https://www.themealdb.com/api/json/v1/1/lookup.php?i="
 id.each do |i|
@@ -64,40 +65,40 @@ id.each do |i|
     i += 1
   end
 end
-puts "creating new user"
-new_user = User.create!(email: "123@123.com", password: "123456")
+# puts "creating new user"
+# new_user = User.create!(email: "123@123.com", password: "123456")
 
 
-puts "creating new profile"
-Profile.create!([
-  {
-    user_id: new_user.id,
-    nickname: "Main Profile",
-    gender: "Male",
-    yourself: true,
-    fitness_goal: "Gain lean muscle",
-    meal_plan: "High Protein",
-    meals_per_day: 4,
-    calories_per_day: 2800,
-    protein_per_day: 180,
-    carbs_per_day: 320,
-    date_of_birth: Date.new(1990, 1, 15),
-    height: 180,
-    weight: 80
-  },
-  {
-    user_id: new_user.id,
-    nickname: "Cutting Profile",
-    gender: "Male",
-    yourself: false,
-    fitness_goal: "Lose weight",
-    meal_plan: "Low Carbs",
-    meals_per_day: 5,
-    calories_per_day: 2200,
-    protein_per_day: 160,
-    carbs_per_day: 220,
-    date_of_birth: Date.new(1990, 1, 15),
-    height: 180,
-    weight: 80
-  }
-])
+# puts "creating new profile"
+# Profile.create!([
+#   {
+#     user_id: new_user.id,
+#     nickname: "Main Profile",
+#     gender: "Male",
+#     yourself: true,
+#     fitness_goal: "Gain lean muscle",
+#     meal_plan: "High Protein",
+#     meals_per_day: 4,
+#     calories_per_day: 2800,
+#     protein_per_day: 180,
+#     carbs_per_day: 320,
+#     date_of_birth: Date.new(1990, 1, 15),
+#     height: 180,
+#     weight: 80
+#   },
+#   {
+#     user_id: new_user.id,
+#     nickname: "Cutting Profile",
+#     gender: "Male",
+#     yourself: false,
+#     fitness_goal: "Lose weight",
+#     meal_plan: "Low Carbs",
+#     meals_per_day: 5,
+#     calories_per_day: 2200,
+#     protein_per_day: 160,
+#     carbs_per_day: 220,
+#     date_of_birth: Date.new(1990, 1, 15),
+#     height: 180,
+#     weight: 80
+#   }
+# ])
