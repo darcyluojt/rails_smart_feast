@@ -1,6 +1,10 @@
 class BasketsController < ApplicationController
   skip_before_action :authenticate_user!
-
+  def index
+    if current_user.present? && current_user.baskets.present?
+      redirect_to basket_path(current_user.baskets.last)
+    end
+  end
   def show
     @basket = Basket.find(params[:id])
     @meals = @basket.meals

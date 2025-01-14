@@ -15,14 +15,16 @@
     <link rel="apple-touch-icon" href="/icon.png">
     <%# <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
     <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%# <%= stylesheet_link_tag "application.tailwind", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
     <%# <%= javascript_pack_tag "hello-world-bundle"  %>
   </head>
 
-  <%# <body><%= render "shared/navbar" %>
+  <body>
 <%= render "shared/flashes" %>
 
     <%= yield %>
+    <%= render "shared/navbar"%>
   </body>
 </html>

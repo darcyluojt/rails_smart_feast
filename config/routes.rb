@@ -17,7 +17,7 @@ Rails.application.routes.draw do
     get :random, on: :collection
   end
   resources :meals
-  resources :baskets, only: :show
+  resources :baskets, only: [:index, :show]
   resources :profiles
   post 'profiles/preiew', to: 'profiles#preview'
 
