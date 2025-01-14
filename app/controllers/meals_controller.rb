@@ -2,12 +2,11 @@ class MealsController < ApplicationController
   skip_before_action :authenticate_user!
 
   def create
-    Rails.logger.debug "Params received: #{params.inspect}"
     if current_user
       @user = current_user
     else
-      value = "new_user" + DateTime.now.to_s
-      @user = User.create!(email: "#{value}@guest.com", password: value)
+      @user = User.create_guest_user
+      sign_in(@user)
     end
     if @user.baskets.present?
       @basket = Basket.where(user: @user).last
@@ -41,6 +40,16 @@ class MealsController < ApplicationController
     else
       render json: @meal.errors, status: :unprocessable_entity
     end
+  end
+
+  def destroy
+    @meal = Meal.find(params[:id])
+    @meal.destroy
+    items = @meal.basket.items
+    items.each do |item|
+      item.destroy
+    end
+    redirect_to basket_path(@meal.basket)
   end
 
   private

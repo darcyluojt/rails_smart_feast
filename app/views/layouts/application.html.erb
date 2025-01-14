@@ -21,10 +21,14 @@
     <%# <%= javascript_pack_tag "hello-world-bundle"  %>
   </head>
 
-  <body>
-<%= render "shared/flashes" %>
-
-    <%= yield %>
-    <%= render "shared/navbar"%>
+  <body class="min-h-screen flex flex-col display-between">
+    <%= render "shared/flashes" %>
+    <main>
+      <%= yield %>
+    </main>
+    <div class="div">
+      <%= render "shared/footer" %>
+      <%= render "shared/navbar"%>
+    </div>
   </body>
 </html>

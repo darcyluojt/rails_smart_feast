@@ -42,7 +42,7 @@ ReactOnRails.configure do |config|
   # React components.
   #
   config.server_bundle_js_file = "server-bundle.js"
-
+  config.build_production_command = "RAILS_ENV=production NODE_ENV=production bin/shakapacker"
   ################################################################################
   ################################################################################
   # FILE SYSTEM BASED COMPONENT REGISTRY

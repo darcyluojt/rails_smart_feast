@@ -5,6 +5,7 @@ class BasketsController < ApplicationController
       redirect_to basket_path(current_user.baskets.last)
     end
   end
+
   def show
     @basket = Basket.find(params[:id])
     @meals = @basket.meals

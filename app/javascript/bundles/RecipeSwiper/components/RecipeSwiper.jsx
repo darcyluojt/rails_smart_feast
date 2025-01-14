@@ -1,14 +1,13 @@
-import PropTypes from 'prop-types';
+
 import React, { useState }  from 'react';
 // import * as style from './RecipeSwiper.module.css';
 import { useSwipeable } from 'react-swipeable';
-import { current } from '@reduxjs/toolkit';
+
 
 const RecipeSwiper = ({ initialRecipe, nextUrl }) => {
   const [currentRecipe, setCurrentRecipe] = useState(initialRecipe);
 
   const fetchNextRecipe = () => {
-    console.log('left: fetching next recipe');
     const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
     fetch(nextUrl, {
       method: 'GET',
@@ -18,7 +17,6 @@ const RecipeSwiper = ({ initialRecipe, nextUrl }) => {
     })
       .then(response => response.json())
       .then(newRecipe => {
-        console.log(newRecipe);
         setCurrentRecipe(newRecipe);
       })
       .catch(error => {
@@ -47,7 +45,6 @@ const RecipeSwiper = ({ initialRecipe, nextUrl }) => {
       }
     })
     .then(data => {
-      console.log(data);
       if (data.status === 200) {
 
         window.location.replace(data.basket_url)}})

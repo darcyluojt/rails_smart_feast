@@ -1,20 +1,20 @@
 <!-- Container with responsive padding -->
 <div class="container mx-auto px-4 py-8">
   <!-- Main heading with proper spacing and size -->
-  <h1 class="text-3xl font-bold mb-6 text-gray-800">Your upcoming meals</h1>
+  <h1 class="text-3xl font-bold mb-6 .text-brand-green">Your upcoming meals</h1>
 
   <% if @meals.empty? %>
     <!-- Empty state with styled message and button -->
     <div class="text-center py-8">
       <p class="text-gray-600 mb-4">You have no upcoming meals</p>
-      <%= link_to 'Plan your meals', root_path, class: "inline-block bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition duration-200" %>
+      <%= link_to 'Plan your meals', root_path, data: { turbo: false }, class: "inline-block bg-brand-orange text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition duration-200" %>
     </div>
   <% else %>
     <!-- Responsive grid for meal cards -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-4">
       <% @meals.each do |meal| %>
         <!-- Individual meal card with shadow and hover effect -->
-        <div class="bg-white rounded-lg shadow-md hover:shadow-lg transition duration-200">
+        <div class="relative bg-white rounded-lg shadow-md hover:shadow-lg transition duration-200">
           <!-- Image container with aspect ratio -->
           <div class="relative h-48">
             <%= image_tag meal.recipe.thumbnail,
@@ -24,6 +24,12 @@
           <h2 class="text-lg font-semibold text-gray-800 p-4 text-center">
             <%= meal.recipe.name %>
           </h2>
+          <%# bin icon relative position to delete the meal %>
+          <div class="absolute bottom-4 right-2">
+            <%= link_to meal, data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' } do %>
+              <i class="fa-solid fa-trash text-gray-400"></i>
+            <% end %>
+        </div>
         </div>
       <% end %>
     </div>

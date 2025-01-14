@@ -1,9 +1,10 @@
+
 <nav class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200">
   <div class="max-w-lg mx-auto px-4">
     <div class="flex justify-between items-center relative">
       <!-- Left section -->
       <div class="flex space-x-4">
-        <%= link_to root_path, class: "flex flex-col items-center py-2 px-3 text-gray-600 hover:text-blue-500" do %>
+        <%= link_to root_path, data: { turbo: false }, class: "flex flex-col items-center py-2 px-3 text-gray-600 hover:text-blue-500" do %>
           <i class="fa-solid fa-house"></i><hr/>
           <span class="text-xs mt-1">Discover</span>
 

@@ -1,8 +1,8 @@
 <%= javascript_pack_tag 'recipe-swiper-bundle' %>
-<div class="flex justify-center h-screen">
+<%= render 'shared/popup' %>
+<div class="flex justify-center h-full">
   <div class="container mx-auto px-4">
     <h1 class="text-xl text-pink-500 mt-4" style="text-align: center">What do you fancy cooking today?</h1>
-    <span class="text-gray-500 text-sm">Swipe left to change recipe, swipe right to add the recipe in your basket, click for recipe details</span>
     <%= react_component("RecipeSwiper", {props: @props, className: "w-full max-w-sm rounded-xl px-4", prerender: false}) %>
   </div>
 </div>

@@ -1,4 +1,4 @@
-// The source code including full typescript support is available at: 
+// The source code including full typescript support is available at:
 // https://github.com/shakacode/react_on_rails_demo_ssr_hmr/blob/master/babel.config.js
 
 module.exports = function (api) {
@@ -12,7 +12,8 @@ module.exports = function (api) {
         '@babel/preset-react',
         {
           development: !isProductionEnv,
-          useBuiltIns: true
+          useBuiltIns: true,
+          "runtime": "automatic"
         }
       ]
     ].filter(Boolean),
