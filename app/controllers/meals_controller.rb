@@ -9,11 +9,11 @@ class MealsController < ApplicationController
       @user = User.create_guest_user
       sign_in(@user)
     end
-    # If user has a basket, use the last basket, else create a new basketasdf
+    # If user has a basket, use the last basket, else create a new basket
     if @user.baskets.present?
       @basket = Basket.where(user: @user).last
     else
-      @basket = Basket.create!(user: @user, name: "Basket for #{DateTime.now.strftime('%^b %d %A')}")
+      @basket = Basket.create!(user: @user, name: "Basket for #{@user.email}")
     end
     # Receive the recipe_id and date from the react UI component
     @meal = Meal.new(meal_params)
@@ -29,6 +29,7 @@ class MealsController < ApplicationController
           exist.save
         else
           @basket.items.create(ingredient: recipe_ingredient.ingredient, quantity: recipe_ingredient.quantity, unit: recipe_ingredient.unit, meal_refs: [@meal.id])
+        end
       end
       respond_to do |format|
         format.html {
@@ -53,11 +54,7 @@ class MealsController < ApplicationController
   def destroy
     @meal = Meal.find(params[:id])
     @meal.destroy
-    items = @meal.basket.items.where(meal_refs: [@meal.id])
-    items = @meal.items
-    items.each do |item|
-      item.destroy
-    end
+    Item.remove_meal_refs(@meal.id)
     redirect_to basket_path(@meal.basket)
   end
 
@@ -66,4 +63,5 @@ class MealsController < ApplicationController
   def meal_params
     params.require(:meal).permit(:recipe_id, :date)
   end
+
 end

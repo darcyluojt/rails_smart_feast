@@ -4,12 +4,10 @@
     <div class="flex justify-between items-center relative">
       <!-- Left section -->
       <div class="flex space-x-4">
-        <%= link_to root_path, data: { turbo: false }, class: "flex flex-col items-center py-2 px-3 text-gray-600 hover:text-blue-500" do %>
+        <%= link_to root_path, data: { turbo: false }, class: "flex flex-col items-center py-2 px-3 text-gray-600 hover:text-brand-green" do %>
           <i class="fa-solid fa-house"></i><hr/>
           <span class="text-xs mt-1">Discover</span>
-
         <% end %>
-        <!-- Add search link similarly -->
       </div>
 
       <!-- Center Logo -->
@@ -25,7 +23,7 @@
       <!-- Right section -->
       <div class="flex space-x-4">
         <!-- Add favorites and profile links -->
-        <%= link_to baskets_path, class: "flex flex-col items-center py-2 px-3 text-gray-600 hover:text-blue-500" do %>
+        <%= link_to baskets_path, class: "flex flex-col items-center py-2 px-3 text-gray-600 hover:text-brand-green" do %>
         <i class="fa-solid fa-kitchen-set"></i>
           <span class="text-xs">Meal plan</span>
         <% end %>
