@@ -10,11 +10,14 @@
 require "json"
 require "open-uri"
 
-# Recipe.destroy_all
-# Ingredient.destroy_all
+Recipe.destroy_all
+Ingredient.destroy_all
+Basket.destroy_all
+User.destroy_all
+Profile.destroy_all
 
 # id = ["53079", "52827", "52873", "52950","52945","52823","52820"]
-id = ["52846","52828", "52948","53083","53073","52903"]
+id = ["52951", "52870", "52975", "52969","52947","53079", "52827", "52873", "52950","52945","52823","52820","52846","52828", "52948","53083","53073","52903"]
 
 url = "https://www.themealdb.com/api/json/v1/1/lookup.php?i="
 id.each do |i|
@@ -44,17 +47,21 @@ id.each do |i|
       service = NrelService.new
       results = service.search_food(ingredient_name)
       puts "Searching for #{ingredient_name}"
-      nutrients = results["foods"][0]["foodNutrients"]
-      protein = nutrients.find { |nutrient| nutrient["nutrientId"] == 1003 }
-      protein = protein.nil? ? 0 : protein["value"]
-      fat = nutrients.find { |nutrient| nutrient["nutrientId"] == 1004 }
-      fat = fat.nil? ? 0 : fat["value"]
-      carbs = nutrients.find { |nutrient| nutrient["nutrientId"] == 1005 }
-      carbs = carbs.nil? ? 0 : carbs["value"]
-      calories = nutrients.find { |nutrient| nutrient["nutrientId"] == 1008 }
-      calories = calories.nil? ? 0 : calories["value"]
-      ingredient = Ingredient.new(name: ingredient_name, calories_unit: calories, protein_unit: protein, fat_unit: fat, carbs_unit: carbs)
-      ingredient.save
+      unless results["foods"].empty?
+        nutrients = results["foods"][0]["foodNutrients"]
+        protein = nutrients.find { |nutrient| nutrient["nutrientId"] == 1003 }
+        protein = protein.nil? ? 0 : protein["value"]
+        fat = nutrients.find { |nutrient| nutrient["nutrientId"] == 1004 }
+        fat = fat.nil? ? 0 : fat["value"]
+        carbs = nutrients.find { |nutrient| nutrient["nutrientId"] == 1005 }
+        carbs = carbs.nil? ? 0 : carbs["value"]
+        calories = nutrients.find { |nutrient| nutrient["nutrientId"] == 1008 }
+        calories = calories.nil? ? 0 : calories["value"]
+        ingredient = Ingredient.new(name: ingredient_name, calories_unit: calories, protein_unit: protein, fat_unit: fat, carbs_unit: carbs)
+        ingredient.save
+      else
+        puts "No results found for #{ingredient_name}"
+      end
 
     end
     quantity = meals["strMeasure#{i}"]
@@ -65,6 +72,8 @@ id.each do |i|
     i += 1
   end
 end
+
+# User and profile functionality are not ready.
 # puts "creating new user"
 # new_user = User.create!(email: "123@123.com", password: "123456")
 
@@ -73,8 +82,8 @@ end
 # Profile.create!([
 #   {
 #     user_id: new_user.id,
-#     nickname: "Main Profile",
-#     gender: "Male",
+#     nickname: "Darcy",
+#     gender: "Femle",
 #     yourself: true,
 #     fitness_goal: "Gain lean muscle",
 #     meal_plan: "High Protein",
@@ -88,7 +97,7 @@ end
 #   },
 #   {
 #     user_id: new_user.id,
-#     nickname: "Cutting Profile",
+#     nickname: "Leo",
 #     gender: "Male",
 #     yourself: false,
 #     fitness_goal: "Lose weight",

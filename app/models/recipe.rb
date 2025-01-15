@@ -1,7 +1,7 @@
 class Recipe < ApplicationRecord
   has_many :ingredients_recipes, dependent: :destroy
   has_many :ingredients, through: :ingredients_recipes
-  has_many :meals
+  has_many :meals, dependent: :destroy
   belongs_to :user, optional: true
 
   scope :by_user, ->(user) { where(user: user) }
