@@ -14,23 +14,22 @@
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-4">
       <% @meals.each do |meal| %>
         <!-- Individual meal card with shadow and hover effect -->
-        <div class="relative bg-white rounded-lg shadow-md hover:shadow-lg transition duration-200">
-          <!-- Image container with aspect ratio -->
-          <div class="relative h-48">
-            <%= image_tag meal.recipe.thumbnail,
-                class: "absolute inset-0 w-full h-full object-cover rounded-t-lg" %>
+        <%= link_to meal do  %>
+          <div class="relative bg-white rounded-lg shadow-md hover:shadow-lg transition duration-200">
+            <div class="relative h-48">
+              <%= image_tag meal.recipe.thumbnail,
+                  class: "absolute inset-0 w-full h-full object-cover rounded-t-lg" %>
+              </div>
+            <h2 class="text-lg font-semibold text-gray-800 p-4 text-center">
+              <%= meal.recipe.name %>
+            </h2>
+            <div class="absolute bottom-4 right-2">
+              <%= link_to meal, data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' } do %>
+                <i class="fa-solid fa-trash text-gray-400"></i>
+              <% end %>
+            </div>
           </div>
-          <!-- Recipe name with proper padding -->
-          <h2 class="text-lg font-semibold text-gray-800 p-4 text-center">
-            <%= meal.recipe.name %>
-          </h2>
-          <%# bin icon relative position to delete the meal %>
-          <div class="absolute bottom-4 right-2">
-            <%= link_to meal, data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' } do %>
-              <i class="fa-solid fa-trash text-gray-400"></i>
-            <% end %>
-        </div>
-        </div>
+          <% end %>
       <% end %>
     </div>
   <% end %>
